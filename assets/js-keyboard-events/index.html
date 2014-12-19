@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<title>Use the keybord</title>
+		<meta charset="UTF-8" />
+		
+	</head>
+	<body>
+			
+	</body>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script>
+			
+			// 37 = arrow-left
+			// 38 = arrow-up
+			// 39 = arrow-right
+			// 40 = arrow-down
+			//http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+			
+			// jquery
+			
+			$("body").keydown(function(event) {
+			  switch(event.keyCode){
+				
+					case 37:
+						console.log("arrow left");
+						break;
+						
+					case 38:
+						console.log("arrow up");
+						break;
+						
+					case 39:
+						console.log("arrow right");
+						break;
+						
+					case 40:
+						console.log("arrow down");
+						break;
+						
+					default:
+						console.log("other key pressed : " + event.keyCode );
+						
+				}
+			});
+			
+			// vanilla javascript
+			
+			document.onkeydown = function(event){
+				switch(event.keyCode){
+				
+					case 37:
+						console.log("arrow left");
+						break;
+						
+					case 38:
+						console.log("arrow up");
+						break;
+						
+					case 39:
+						console.log("arrow right");
+						break;
+						
+					case 40:
+						console.log("arrow down");
+						break;
+						
+					default:
+						console.log("other key pressed");
+						
+				}
+			}
+			
+		</script>	
+</html>

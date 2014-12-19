@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name='HandheldFriendly' content='True' />
+		<meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<title>iOS Scroll</title>
+
+		<!--
+		viewport:
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+		webapp:
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<link rel="apple-touch-icon-precomposed" href="icon.png" />
+		favicon:
+		<link rel="icon" href="img/favicon.ico" />
+		<link rel="icon" type="image/png" href="img/favicon.png" />
+		-->
+
+		<style type="text/css">
+
+			html, body {
+				height: 100%;
+			}
+			* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 0; padding: 0; }
+
+			p {
+				margin: 1em 0;
+			}
+
+			.scroll-container {
+				height: 100%;
+				overflow-y: scroll;
+				-webkit-overflow-scrolling: touch;
+			}
+
+			body {
+				overflow: hidden;
+			}
+
+			body.refresh #root {
+				-webkit-transition: all .25s ease-out;
+				-webkit-transform: translate3d(0,80px,0);
+			}
+
+			body.refresh-invite #refresh {
+				-webkit-transition: all .35s cubic-bezier(0.175, 0.885, 0.32, 1.475);
+				-webkit-transform: translate3d(0,0,0);
+			}
+
+			body.refresh #spinner {
+				-webkit-transition: all .35s cubic-bezier(0.175, 0.885, 0.32, 1.475);
+				-webkit-transform: translate3d(0,0,0);
+			}
+
+			#spinner {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100px;
+				background: url(spinner.gif) no-repeat center center;
+				-webkit-transform: translate3d(0,-100px,0);
+				-webkit-transition: all .4s ease-out;
+			}
+
+			#refresh {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100px;
+				text-align: center;
+				line-height: 100px;
+				font-size: 40px;
+				font-weight: bold;
+				color: red;
+				-webkit-transform: translate3d(0,-100px,0);
+				-webkit-transition: all .4s ease-out;
+			}
+
+			#root {
+				position: relative;
+				padding: 15px;
+				font-size: 36px;
+				line-height: 1.3;
+				position: fixed;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				-webkit-transition: all .4s ease-out;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<div class="scroll-container">
+				<div id="root" class="scroll-container">
+					<h1>Pull to refresh</h1>
+
+					<p>Try to pull this page down to trigger a pull-to-refresh-like animation.</p>
+
+					<p>Bacon ipsum dolor sit amet prosciutto ball tip tenderloin pastrami beef ribs meatloaf andouille. Shoulder tongue hamburger beef ribs drumstick t-bone. Turkey chuck pig tongue ham hock ground round short loin tail leberkas t-bone filet mignon pork chop pancetta. Tongue fatback turkey boudin short ribs flank sirloin. Ball tip pancetta meatloaf, tenderloin swine jerky turducken flank tri-tip jowl short loin leberkas. Pastrami tongue pancetta biltong rump. Meatball swine boudin shoulder jerky.</p>
+
+					<p>Sausage prosciutto leberkas corned beef, chuck flank fatback ball tip jowl meatball pig pork belly ground round. Tri-tip bacon pastrami, biltong leberkas frankfurter ribeye pork chop jowl tongue shank pork belly turkey. Turducken pancetta boudin andouille tenderloin shank filet mignon tri-tip pork chop jowl pork loin. Ham short loin sausage bresaola pork chop short ribs filet mignon tongue corned beef biltong ball tip spare ribs turducken jerky. Pork meatball hamburger andouille, chuck jowl tenderloin frankfurter jerky capicola filet mignon boudin rump sausage ground round.</p>
+
+					<p>Ball tip pork chop ham hock sausage tongue bresaola frankfurter fatback beef ribs. Ribeye andouille short loin ham cow venison shankle meatloaf spare ribs. Venison andouille meatloaf doner strip steak tail boudin. Strip steak ball tip beef drumstick brisket biltong meatball pork loin turkey kielbasa pig short loin. Ball tip ribeye spare ribs beef andouille leberkas pastrami tail bresaola rump corned beef jowl tongue hamburger. Chicken pastrami tail leberkas pork brisket, venison biltong pork loin pancetta hamburger meatball shank fatback.</p>
+
+					<p>Beef ribs tail andouille biltong beef. Ribeye bacon flank drumstick, fatback jerky chuck pork belly sirloin capicola sausage ground round frankfurter tongue. Tongue swine corned beef, fatback sausage salami brisket rump strip steak pancetta sirloin t-bone. Short ribs fatback tenderloin bacon shank pancetta pig tongue ball tip. Doner biltong corned beef shankle andouille, t-bone meatloaf pig tail short ribs capicola spare ribs swine.</p>
+
+					<p>Filet mignon rump hamburger, pancetta corned beef capicola chuck cow. Short loin biltong chuck chicken boudin pork belly salami beef. Shank doner frankfurter jowl. Sausage short ribs filet mignon bacon boudin. Strip steak pig sirloin, chuck shoulder capicola short ribs.</p>
+				</div>
+		</div>
+		<div id="spinner"></div>
+		<div id="refresh">Pull tout rîfrèche</div>
+
+<script type="text/javascript">
+
+root.addEventListener("touchmove",function(e){
+	if ( e.currentTarget.scrollTop < -100 ) {
+		document.body.classList.add("refresh-invite");
+	} else {
+		document.body.classList.remove("refresh-invite");
+	}
+},false);
+
+root.addEventListener("touchend",function(e){
+		document.body.classList.remove("refresh-invite");
+	if ( e.currentTarget.scrollTop < -100 ) {
+		document.body.classList.add("refresh");
+		setTimeout( function(){
+			document.body.classList.remove("refresh");
+		}, 1000 );
+	}
+},false);
+
+</script>
+
+
+
+
+<script type="text/javascript">
+// this works too, but feels less natural (and causes a slightly visible glitch when the element is scrolled by 1 pixel)
+function preventUglyBackgroundScrollOnIOS(el){
+	el.addEventListener("scroll",function(e){
+		if ( el.scrollTop <= 1 ) 
+			el.scrollTop = 1;
+		else if ( el.scrollTop >= el.scrollHeight - el.clientHeight - 1 ) 
+			el.scrollTop = el.scrollHeight - el.clientHeight - 1;
+	},false);
+	el.scrollTop = 1;
+}
+//preventUglyBackgroundScrollOnIOS(root);
+</script>
+
+	</body>
+</html>
